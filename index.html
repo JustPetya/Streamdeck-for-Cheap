@@ -1,0 +1,108 @@
+<!--
+Author: Dustin Rex
+Contact: 
+    - E-mail: Dustin.Rex@pm.me
+    - Discord User: itspetya
+    - Discord Server: https://discord.gg/XE8YfAg56x
+      Join my Discord for new releases!
+License: MIT License (as-is)
+
+Feel free to write me with any questions on my Discord, you can also look into the FAQ.
+Also, if you want to support me or everyone else on the Discord, post useful codes into the channel.
+-->
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Streamdeck v1.0</title>
+    <style>
+        body, html {
+            background-color: #E6E6E6;
+            top: 48px;
+            height: 600px;
+            width: 1024px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        } .container {
+            width: 1008px;
+            height: 552px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        } .button {
+            max-height: 160px;
+            max-width: 160px;
+            cursor: pointer;
+            padding: 4px;
+        } .bbutton {
+            max-width: 325px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!--for other websites use this prebuild and put the name of the instruction into [onclick="sendInstruction('name_of_instruction')"]-->
+        <a class="button" href="/discord"><img src="/img/discord.png" alt="Discord"></a>
+        <a class="button"><img src="/img/empty.png" alt=""></a>
+        <a class="button"><img src="/img/empty.png" alt=""></a>
+        <a class="button"><img src="/img/empty.png" alt=""></a>
+        <a class="button"><img src="/img/empty.png" alt=""></a>
+        <a class="button"><img src="/img/empty.png" alt=""></a>
+        <a class="button"><img src="/img/empty.png" alt=""></a>
+        <a class="button"><img src="/img/empty.png" alt=""></a>
+        <a class="button"><img src="/img/empty.png" alt=""></a>
+        <a class="button"><img src="/img/empty.png" alt=""></a>
+        <a class="button"><img src="/img/empty.png" alt=""></a>
+        <!--if you want to add a soundfile do it like that and put the name of the instruction into [onclick="sendInstruction('name_of_instruction')"]:-->
+        <a class="button"><img src="/img/empty.png" alt="sound" onclick="sendInstruction('sound')"></a>
+        <a class="button"><img src="/img/empty.png" alt=""></a>
+        <a class="button"><img src="/img/empty.png" alt=""></a>
+        <!--for new instructions make that and put the name of the instruction into [onclick="sendInstruction('name_of_instruction')"]-->
+        <a class="button"><img src="/img/previous.png" alt="previous" onclick="sendInstruction('music_previous')"></a>
+        <a class="button"><img src="/img/pause.png" alt="pause" onclick="sendInstruction('music_pause')"></a>
+        <a class="button"><img src="/img/next.png" alt="next" onclick="sendInstruction('music_next')"></a>
+        <a class="button"><img src="/img/empty.png" alt=""></a>
+    </div>
+
+    <!-- invisible audio for sound on iOS -->
+    <audio id="soundPlayer" style="display:none;"></audio>
+
+    <script>
+        function sendInstruction(action) {
+            fetch(`/instructions?${action}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("response").textContent = data;
+                });
+
+            // Use the Web Audio API to play the sound on iOS
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const source = audioContext.createBufferSource();
+
+            fetch(`wav/${action}.wav`)
+                .then(response => response.arrayBuffer())
+                .then(buffer => audioContext.decodeAudioData(buffer))
+                .then(decodedBuffer => {
+                    source.buffer = decodedBuffer;
+                    source.connect(audioContext.destination);
+                    source.start(0);
+                })
+                .catch(error => {
+                    console.error('Error loading or playing sound:', error);
+                });
+        }
+
+        function playSound(action) {
+            const audio = new Audio(`wav/${action}.wav`);
+            audio.play();
+        }
+    </script>
+</body>
+</html>
