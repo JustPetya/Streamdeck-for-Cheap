@@ -6,16 +6,17 @@ It is also important that port 8000 is open in the netwok and all devices connec
 ## Structure
 IDK if it's needed in a project so small like this one but here a structure section for you!
 ###### Sever (important for all)
-- server/check.py
-- server/main.py
-- server 
+- server/check.py | 
+Is installing everything from requrements.md if it isn't allready.
+- server/main.py |
+The server and interpretation of the html files, playig sounds and displaying images
 
 ###### Client (ignore every "Client" in PI02 if you manually open the website on use)
-- PI02/check.py   | 
+- PI02/check.py | 
 Is installing everything from requrements.md if it isn't allready.
-- PI02/main.py    | 
+- PI02/main.py | 
 The stuff that is controlling everything.
-- PI02/util.py    | 
+- PI02/util.py | 
 Things like loggin (not in use) and starting the machine the server is on.
 - PI02/browser.py | 
 Start of the Chromium-Browser.
