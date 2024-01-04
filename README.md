@@ -11,18 +11,14 @@ IDK if it's needed in a project so small like this one but here a structure sect
 - server 
 
 ###### Client (ignore every "Client" in PI02 if you manually open the website on use)
-- PI02/check.py
-
-Is installing everything from requrements.md if it isn't allready.
-- PI02/main.py
-
-The stuff that is controlling everything.
-- PI02/util.py
-
-Things like loggin (not in use) and starting the machine the server is on.
-- PI02/browser.py
-
-Start of the Chromium-Browser.
+- PI02/check.py   
+| Is installing everything from requrements.md if it isn't allready.
+- PI02/main.py    
+| The stuff that is controlling everything.
+- PI02/util.py    
+| Things like loggin (not in use) and starting the machine the server is on.
+- PI02/browser.py 
+| Start of the Chromium-Browser.
 
 ## WORKING ON
 ### TODO:
