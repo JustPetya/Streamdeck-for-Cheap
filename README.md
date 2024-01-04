@@ -9,7 +9,7 @@ IDK if it's needed in a project so small like this one but here a structure sect
 - server/check.py | 
 Is installing everything from requrements.md if it isn't allready.
 - server/main.py |
-The server and interpretation of the html files, playig sounds and displaying images
+The server and the interpretation of html files, audio playback and display of images.
 
 ###### Client (ignore every "Client" in PI02 if you manually open the website on use)
 - PI02/check.py | 
