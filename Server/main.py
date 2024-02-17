@@ -150,9 +150,9 @@ def main():
                 self.end_headers()
 
             elif path == "/":
-                self.path = "/index.html"
+                self.path = "/page/index.html"
                 super().do_GET()
-            elif path.startswith("/img/"):
+            elif path.startswith("/page/img/"):
                 # Serve images from the 'img' folder
                 img_path = os.path.join(os.getcwd(), 'img', os.path.basename(path))
                 if os.path.exists(img_path) and os.path.isfile(img_path):
@@ -168,7 +168,7 @@ def main():
                 else:
                     # If the requested image file doesn't exist, serve a 404 error
                     self.send_error(404, "Image not found")
-            elif path.startswith("/wav/"):
+            elif path.startswith("/page/wav/"):
                 # Serve sound files from the 'wav' folder
                 sound_file_path = os.path.join(os.getcwd(), 'wav', os.path.basename(path))
                 if os.path.exists(sound_file_path) and os.path.isfile(sound_file_path):
