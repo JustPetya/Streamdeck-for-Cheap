@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Discord</title>
+    <style>
+        body, html {
+            background-color: #E6E6E6;
+            top: 48px;
+            height: 576px;
+            width: 1024px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        } .container {
+            width: 1008px;
+            height: 552px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        } .button {
+            max-height: 160px;
+            max-width: 160px;
+            cursor: pointer;
+            padding: 4px;
+        } .bbutton {
+            max-width: 325px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a class="button" href="../"><img src="../img/back.png" alt="back"></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+    </div>
+
+
+    <script>
+        function sendInstruction(action) {
+            fetch(`/instructions?${action}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("response").textContent = data;
+                });
+        }
+    </script>
+</body>
+</html>

@@ -1,18 +1,3 @@
-<!--
-Author: Dustin Rex
-Contact: 
-    - E-mail: Dustin.Rex@pm.me
-    - Discord User: itspetya
-    - Discord Server: https://discord.gg/XE8YfAg56x
-      Join my Discord for new releases!
-License: MIT License (as-is)
-
-Feel free to write me with any questions on my Discord, you can also look into the FAQ.
-Also, if you want to support me or everyone else on the Discord, post useful codes into the channel.
--->
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +6,7 @@ Also, if you want to support me or everyone else on the Discord, post useful cod
         body, html {
             background-color: #E6E6E6;
             top: 48px;
-            height: 600px;
+            height: 576px;
             width: 1024px;
             margin: 0;
             padding: 0;
@@ -48,27 +33,23 @@ Also, if you want to support me or everyone else on the Discord, post useful cod
 </head>
 <body>
     <div class="container">
-        <!--for other websites use this prebuild and put the name of the instruction into [onclick="sendInstruction('name_of_instruction')"]-->
         <a class="button" href="/discord"><img src="/img/discord.png" alt="Discord"></a>
         <a class="button"><img src="/img/empty.png" alt=""></a>
         <a class="button"><img src="/img/empty.png" alt=""></a>
+        <a class="button" href="/filmora"><img src="/img/filmora.png" alt="Filmora"></a>
+        <a class="button" href="/obs"><img src="/img/obs.png" alt="OBS"></a>
+        <a class="button"><img src="/img/vc.png" alt="vc" onclick="sendInstruction('vc')"></a>
+        <a class="button" href="/calender"><img src="/img/empty.png" alt="calender"></a>
         <a class="button"><img src="/img/empty.png" alt=""></a>
         <a class="button"><img src="/img/empty.png" alt=""></a>
-        <a class="button"><img src="/img/empty.png" alt=""></a>
-        <a class="button"><img src="/img/empty.png" alt=""></a>
-        <a class="button"><img src="/img/empty.png" alt=""></a>
-        <a class="button"><img src="/img/empty.png" alt=""></a>
-        <a class="button"><img src="/img/empty.png" alt=""></a>
-        <a class="button"><img src="/img/empty.png" alt=""></a>
-        <!--if you want to add a soundfile do it like that and put the name of the instruction into [onclick="sendInstruction('name_of_instruction')"]:-->
-        <a class="button"><img src="/img/empty.png" alt="sound" onclick="sendInstruction('sound')"></a>
-        <a class="button"><img src="/img/empty.png" alt=""></a>
-        <a class="button"><img src="/img/empty.png" alt=""></a>
-        <!--for new instructions make that and put the name of the instruction into [onclick="sendInstruction('name_of_instruction')"]-->
+        <a class="button" href="/krita"><img src="/img/krita.png" alt="Krita"></a>
+        <a class="button"><img src="/img/down.png" alt="down" onclick="sendInstruction('down')"></a>
+        <a class="button"><img src="/img/fart.png" alt="fart" onclick="sendInstruction('fart')"></a>
+        <a class="button" href="/todo"><img src="/img/empty.png" alt="todo"></a>
         <a class="button"><img src="/img/previous.png" alt="previous" onclick="sendInstruction('music_previous')"></a>
         <a class="button"><img src="/img/pause.png" alt="pause" onclick="sendInstruction('music_pause')"></a>
         <a class="button"><img src="/img/next.png" alt="next" onclick="sendInstruction('music_next')"></a>
-        <a class="button"><img src="/img/empty.png" alt=""></a>
+        <a class="button bbutton"><img src="/img/food.png" alt="food" onclick="sendInstruction('food')"></a>
     </div>
 
     <!-- invisible audio for sound on iOS -->
@@ -98,6 +79,18 @@ Also, if you want to support me or everyone else on the Discord, post useful cod
                     console.error('Error loading or playing sound:', error);
                 });
         }
+//            fetch(`wav/${action}.wav`)
+//                .then(response => {
+//                    if (response.ok) {
+//                        playSound(`${action}`);
+//                    } else {
+//                        console.error('Server error:', response.status);
+//                    }
+//                })
+//                .catch(error => {
+//                    console.error('Network error:', error);
+//                });
+//        }
 
         function playSound(action) {
             const audio = new Audio(`wav/${action}.wav`);

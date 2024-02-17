@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OBS</title>
+    <style>
+        body, html {
+            background-color: #E6E6E6;
+            top: 48px;
+            height: 576px;
+            width: 1024px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        } .container {
+            width: 1008px;
+            height: 552px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        } .button {
+            max-height: 160px;
+            max-width: 160px;
+            cursor: pointer;
+            padding: 4px;
+        } .bbutton {
+            max-width: 325px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../"><img class="button" src="../img/back.png" alt="back"></a>
+        <a class="button"><img src="../img/obs_unmute.png" alt="unmutemic" onclick="sendInstruction('obs_unmutemic')"></a>
+        <a class="button"><img src="../img/obs_startrecord.png" alt="startrecord" onclick="sendInstruction('obs_startrecord')"></a>
+        <a class="button"><img src="../img/obs_stoprecord.png" alt="stoprecord" onclick="sendInstruction('obs_stoprecord')"></a>
+        <a class="button"><img src="../img/obs_pauserecord.png" alt="pauserecord" onclick="sendInstruction('obs_pauserecord')"></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/dc_mute.png" alt="mutemic" onclick="sendInstruction('obs_mutemic')"></a>
+        <a class="button"><img src="../img/obs_startstream.png" alt="startstream" onclick="sendInstruction('obs_startstream')"></a>
+        <a class="button"><img src="../img/obs_stopstream.png" alt="stopstream" onclick="sendInstruction('obs_stopstream')"></a>
+        <a class="button"><img src="../img/obs_pausestream.png" alt="pausestream" onclick="sendInstruction('obs_pausestream')"></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/empty.png" alt=""></a>
+        <a class="button"><img src="../img/obs_fullcam.png" alt="fullcam" onclick="sendInstruction('obs_fullcam')"></a>
+        <a class="button"><img src="../img/obs_game.png" alt="game" onclick="sendInstruction('obs_game')"></a>
+        <a class="button"><img src="../img/krita.png" alt="krita" onclick="sendInstruction('obs_krita')"></a>
+        <a class="button"><img src="../img/discord.png" alt="discord" onclick="sendInstruction('obs_discord')"></a>
+        <a class="button"><img src="../img/obs_screen.png" alt="screen" onclick="sendInstruction('obs_screen')"></a>
+    </div>
+
+    <script>
+        function sendInstruction(action) {
+            fetch(`/instructions?${action}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("response").textContent = data;
+                });
+        }
+    </script>
+</body>
+</html>
