@@ -1,5 +1,7 @@
+from setup.get_settings import check_backend as backend
+# from page.page import CustomHandler as handler
+import ssl
 import http.server
-# import ssl
 import mimetypes
 import os
 import socket
@@ -7,61 +9,56 @@ import socketserver
 
 try:
     import pyautogui
+
+    _imports = False
 except ImportError:
-    input(
-        "The project \"pyautogui\" is is not installed on this system, do you want to install it?\nInstall? ["
-        "ENTER]\n\nIf this Error keeps appearing reinstall that project or reinstall \"python3\"!\nRestart after the "
-        "script closed!")
-    os.system('python -m pip install pyautogui')
-    pass
+    print("\"pyautogui\" not found")
+    _imports = True
 try:
     from pynput.keyboard import Listener
+
+    _imports = False
 except ImportError:
-    input("The project \"pynput\" is is not installed on this system, do you want to install it?\nInstall? ["
-          "ENTER]\n\nIf this Error keeps appearing reinstall that project or reinstall \"python3\"!\nRestart after "
-          "the script closed!")
-    os.system('python -m pip install pynput')
-    pass
+    print("\"pynput\" not found")
+    _imports = True
 try:
     import pygame
+
+    _imports = False
 except ImportError:
-    input("The project \"pygame\" is is not installed on this system, do you want to install it?\nInstall? ["
-          "ENTER]\n\nIf this Error keeps appearing reinstall that project or reinstall \"python3\"!\nRestart after "
-          "the script closed!")
-    os.system('python -m pip install pygame')
-    pass
+    print("\"pygame\" not found")
+    _imports = True
 try:
     import keyboard
+
+    _imports = False
 except ImportError:
-    input("The project \"keyboard\" is is not installed on this system, do you want to install it?\nInstall? ["
-          "ENTER]\n\nIf this Error keeps appearing reinstall that project or reinstall \"python3\"!\nRestart after "
-          "the script closed!")
-    os.system('python -m pip install keyboard')
-    pass
+    print("\"keyboard\" not found")
+    _imports = True
 
-
-# defines
-def ClearAll():
-    command = "clear"
-    if os.name in ("nt", "dos"):  # use "cls" on windows or dos
-        command = "cls"
-    os.system(command)
+sys = "simple"
+if os.name in ("nt", "dos"):
+    sys = "dos"
 
 
 def main():
-    ClearAll()
-    # Define the port on which you want to run the server
-    PORT = 8000
-    # HTTPS_PORT = 8443
+    # retrieving data for pip update
+    auto_update = backend.usr()
+    if sys == "simple" & auto_update & _imports:
+        os.system("python3 required/get_pip.py")
+    elif sys == "dos" & auto_update & _imports:
+        os.system("python required/get_pip.py")
+    else:
+        pass
 
-    pygame.mixer.init()
-    hotkeys = {}
-
-    # Define a custom request handler to handle incoming requests
+    # TODO: move that shit to page/page.py
     class CustomHandler(http.server.SimpleHTTPRequestHandler):
         def end_headers(self):
             self.send_header("Access-Control-Allow-Origin", "*")  # Allow requests from any origin
             super().end_headers()
+
+        pygame.mixer.init()
+        hotkeys = {}
 
         def do_GET(self):
             # Extract the path from the URL
@@ -132,14 +129,14 @@ def main():
                     self.send_error(404, "Action not found")
                 actions_to_sounds = {
                     # Mom and Dad
-                    'fart': ('fart.wav'),
-                    'food': ('food.wav'),
-                    'down': ('down.wav'),
+                    "fart": "fart.wav",
+                    "food": "food.wav",
+                    "down": "down.wav"
                 }
 
                 if instructions in actions_to_sounds:
                     sound_file = actions_to_sounds[instructions]
-                    sound_path = os.path.join(os.getcwd(), 'wav', sound_file)
+                    sound_path = os.path.join(os.getcwd(), 'page/wav', sound_file)
                     if os.path.exists(sound_path):
                         sound_effect = pygame.mixer.Sound(sound_path)
                         sound_effect.play()
@@ -154,7 +151,7 @@ def main():
                 super().do_GET()
             elif path.startswith("/page/img/"):
                 # Serve images from the 'img' folder
-                img_path = os.path.join(os.getcwd(), 'img', os.path.basename(path))
+                img_path = os.path.join(os.getcwd(), 'page/img', os.path.basename(path))
                 if os.path.exists(img_path) and os.path.isfile(img_path):
                     # If the requested image file exists, serve it with the appropriate content type
                     content_type, _ = mimetypes.guess_type(img_path)
@@ -170,7 +167,7 @@ def main():
                     self.send_error(404, "Image not found")
             elif path.startswith("/page/wav/"):
                 # Serve sound files from the 'wav' folder
-                sound_file_path = os.path.join(os.getcwd(), 'wav', os.path.basename(path))
+                sound_file_path = os.path.join(os.getcwd(), 'page/wav', os.path.basename(path))
                 if os.path.exists(sound_file_path) and os.path.isfile(sound_file_path):
                     # If the requested sound file exists, serve it with the appropriate content type
                     content_type, _ = mimetypes.guess_type(sound_file_path)
@@ -185,10 +182,10 @@ def main():
                     # If the requested sound file doesn't exist, serve a 404 error
                     self.send_error(404, "Sound not found")
             else:
-                html_file_path = os.path.join(os.getcwd(), 'html', f"{file_name}.html")
+                html_file_path = os.path.join(os.getcwd(), 'page/html', f"{file_name}.html")
                 if os.path.exists(html_file_path):
                     # Serve the sub-file from the html folder
-                    self.path = f"/html/{file_name}.html"
+                    self.path = f"/page/html/{file_name}.html"
                     super().do_GET()
                 else:
                     # If the requested file doesn't exist, serve a 404 error page
@@ -198,30 +195,51 @@ def main():
             # Handle POST requests if needed
             pass
 
-    # Set up the server with the custom request handler
-    with socketserver.TCPServer(("", PORT), CustomHandler) as httpd:
-        hostname = socket.gethostname()
-        IPAddr = socket.gethostbyname(hostname)
-        print("Your Computer IP Address is:" + IPAddr)
-        print(f"Serving on port {PORT}")
+    cert = backend._certificate()
+    # defining specifics for http and https
+    if cert:
+        PORT = 8443
+
+        # TODO: let page/page.py handle everything regarding html and javascript
 
         # Set up SSL context
-        # ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-        # ssl_context.load_cert_chain(certfile="cert.pem", keyfile="key.pem")
+        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+        ssl_context.load_cert_chain(certfile="requires/cert.pem", keyfile="requires/key.pem")
+        # place your certificate and key inside the required-directory and replace the existing files, you can easily
+        # create a ssl certificate using OpenSSL
 
-        # Start the server and keep it running
-        # with socketserver.TCPServer(("0.0.0.0", 8443), CustomHandler) as httpsd:
-        # print(f"Serving on HTTPS port 8443")
-        # httpsd.socket = ssl_context.wrap_socket(httpsd.socket, server_side=True)
-        try:
-            httpd.serve_forever()
-            # httpsd.serve_forever()
-        except KeyboardInterrupt:
-            print("\nServer shutting down...")
-            httpd.server_close()
-            # httpsd.server_close()
+        # Start server ssl-certified
+        with socketserver.TCPServer(("0.0.0.0", PORT), CustomHandler) as httpsd:
+            IPAddr = socket.gethostbyname(socket.gethostname())  # gather Host-IP
+            print(f"Serving on port {PORT}, website is hosted under " + IPAddr + f":{PORT}")
+            httpsd.socket = ssl_context.wrap_socket(httpsd.socket, server_side=True)
+
+            try:
+                httpsd.serve_forever()
+            except KeyboardInterrupt:
+                print("\nServer shutting down...")
+                httpsd.server_close()
+    elif not cert:
+        PORT = 8000
+
+        # Start server unencrypted
+        with socketserver.TCPServer(("", PORT), CustomHandler) as httpd:
+            IPAddr = socket.gethostbyname(socket.gethostname())
+            print(f"Serving on port {PORT}, website is hosted under " + IPAddr + f":{PORT}")
+
+            try:
+                httpd.serve_forever()
+            except KeyboardInterrupt:
+                print("\nServer shutting down...")
+                httpd.server_close()
+    else:
+        print("Sorry there was an error, please check if settings.ini got correct data!")
+        exit("0")
 
 
 if __name__ == "__main__":
-    ClearAll()
+    if sys == "dos":
+        os.system("cls")
+    else:
+        os.system("clear")
     main()
