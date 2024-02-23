@@ -58,7 +58,6 @@ This option is for every device that runs python.
 | -> [SERVER]           | Stores macaddress and ip address of the host.                                                    |
 | -> [SCREEN]           | Stores screensize.                                                                               |
 | web/connect.py        | Not sure. :sleepy:                                                                               |
-| web/first_run.py      | Does stuf on the first run...                                                                    |
 | web/ping.py           | Checks if ip of host is active.                                                                  |
 | main.py               | Runs the software.                                                                               |
 
@@ -71,6 +70,7 @@ This option is for every device that runs python.
 | page/index.html       | The start page of the website for the streamdeck.                                                |
 | page/page.py          | Connects to the javascript of the website.                                                       |
 | required/get_pip.py   | Installs and/or updates pip and the packages used by the project if the software runs on python. |
+| setup/first_run.py    | Does stuf on the first run...                                                                    |
 | setup/get_settings.py | Gathers stored values and write them to the ini file.                                            |
 | setup/settings.ini    | Information for the software is installed in the file.                                           |
 | -> [CERT]             | Stores if the user wants to use https or http.                                                   |

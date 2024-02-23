@@ -5,4 +5,13 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PyNamespacePackagesService">
+    <option name="namespacePackageFolders">
+      <list>
+        <option value="$MODULE_DIR$/Server/setup" />
+        <option value="$MODULE_DIR$/Server/required" />
+        <option value="$MODULE_DIR$/Server/page" />
+      </list>
+    </option>
+  </component>
 </module>
