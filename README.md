@@ -1,9 +1,11 @@
 # Streamdeck for Cheap
 ## About
+***(IMPORTENT STUFF IN THE NOTES SECTION, MUST READBEFORE JUDGING)***
+
 This project was created because I like money, so if you want to give me some you can just do so below under *"Buy me a coffee"*.<br>
 But for real, I do **not** see a point in paying for something that can be done better and cheaper self-build, so I bought a screen and a pi, printed a frame for all of it and wrote this software.<br>
-Also there was no real software that I can connect to my smart-home to or display on a static devise.
-I tried to make this project as user-friendly as possible that noone **needs** to be able to program, more under [Install](../Streamdeck-for-Cheap#Install).
+Also there was no real software that I can connect my smart-home to or display on a static devise.
+I tried to make this project as user-friendly as possible that no one **needs** to be able to program, more under [Install](../Streamdeck-for-Cheap#Install).
 
 ## Requirements
 ##### Client
@@ -17,8 +19,7 @@ The minimum requirements for this streamdeck is just ~500MB RAM, any CPU that ca
 ###### Server
 This option is only for Windows-users.
 1. Go to the [releases]()
-2. Download "setup.exe"
-3. Execute the file and follow the instructions
+2. ***(UPDATE SOON)***
 4. Enjoy
 
 ###### Client
@@ -38,11 +39,7 @@ This option is for every device that runs python.
 
 ###### Client
 This option is for every device that runs python.
-1. Go on the repository into 
-2. Download the [zip-file](https://github.com/JustPetya/Streamdeck-for-Cheap/archive/refs/heads/main.zip) or use the [.git-link](https://github.com/JustPetya/Streamdeck-for-Cheap.git)
-3. Start Client/main.py
-4. Press the button in the middle of the screen
-5. Enjoy
+1. ***(MAYBE SOON)***
 
 ## Structure
 ##### Client *(ignore all in "Client" if you manually open the website on use)*
@@ -91,10 +88,10 @@ This option is for every device that runs python.
 
 ### FIX ME:
 ##### Server
-- [ ] 
+- [ ] stupidity of some bad code
 
 ##### Client
-- [ ] 
+- [ ] just don't
 
 ### NOTES:
->
+> This repository will be updated soon with a compleat new code-base (sometime in early, spring 2025)
